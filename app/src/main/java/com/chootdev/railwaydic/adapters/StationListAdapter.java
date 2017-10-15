@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chootdev.csnackbar.Duration;
 import com.chootdev.csnackbar.Snackbar;
 import com.chootdev.csnackbar.Type;
 import com.chootdev.railwaydic.R;
+import com.chootdev.railwaydic.alerts.StationDataAlert;
 import com.chootdev.railwaydic.db.StationModel;
 
 import java.util.ArrayList;
@@ -28,9 +30,10 @@ import java.util.List;
  * Company : Fidenz Technologies
  */
 
-public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.Holder> {
+public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.Holder> implements StationDataAlert.StationDataAlertCallback {
     private Context context;
     private StationFilterCallback callback;
+    private StationDataAlert stationDataAlert;
 
     private List<StationModel> items;
     private List<StationModel> orig;
@@ -39,7 +42,9 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
         this.context = context;
         this.callback = callback;
         this.orig = items;
-        this.items = new ArrayList<>();
+        this.items = items;
+
+        this.stationDataAlert = new StationDataAlert(context, this);
     }
 
     @Override
@@ -59,22 +64,33 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
         holder.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String phone = item.getTelephone();
-                    if (phone != null && phone.length() != 0) {
-                        makeCall(phone, (item.getName() != null ? item.getName() : ""));
-                    } else {
-                        Snackbar.with(context, null)
-                                .type(Type.ERROR)
-                                .message("No number found...")
-                                .duration(Duration.SHORT)
-                                .show();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                tryToMakeCall(item);
             }
         });
+
+        holder.mainView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stationDataAlert.show(item);
+            }
+        });
+    }
+
+    private void tryToMakeCall(StationModel item) {
+        try {
+            String phone = item.getTelephone();
+            if (phone != null && phone.length() != 0) {
+                makeCall(phone, (item.getName() != null ? item.getName() : ""));
+            } else {
+                Snackbar.with(context, null)
+                        .type(Type.ERROR)
+                        .message("No number found...")
+                        .duration(Duration.SHORT)
+                        .show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void makeCall(final String number, final String stationName) {
@@ -136,10 +152,16 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
         return (items != null ? items.size() : 0);
     }
 
+    @Override
+    public void onCallPressed(StationModel model) {
+        tryToMakeCall(model);
+    }
+
     public class Holder extends RecyclerView.ViewHolder {
 
         public TextView name, nameCode, code;
         public ImageButton btnCall;
+        public LinearLayout mainView;
 
         public Holder(View itemView) {
             super(itemView);
@@ -148,6 +170,7 @@ public class StationListAdapter extends RecyclerView.Adapter<StationListAdapter.
             nameCode = (TextView) itemView.findViewById(R.id.tvStationCodeName);
             code = (TextView) itemView.findViewById(R.id.tvStationCode);
             btnCall = (ImageButton) itemView.findViewById(R.id.btnCall);
+            mainView = (LinearLayout) itemView.findViewById(R.id.layMain);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.chootdev.railwaydic.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -7,9 +8,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.chootdev.csnackbar.Duration;
 import com.chootdev.csnackbar.Snackbar;
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements FillDatabase.Fill
         rvList = (RecyclerView) findViewById(R.id.rvList);
 
         edtSearch.setEnabled(false);
+        edtSearch.setCursorVisible(false);
     }
 
     private void populateList(List<StationModel> stations) {
@@ -79,6 +85,25 @@ public class MainActivity extends AppCompatActivity implements FillDatabase.Fill
             public void afterTextChanged(Editable s) {}
         });
 
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    performSearch();
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        edtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtSearch.setCursorVisible(true);
+            }
+        });
+
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +111,13 @@ public class MainActivity extends AppCompatActivity implements FillDatabase.Fill
                 edtSearch.setText("");
             }
         });
+    }
+
+    private void performSearch() {
+        edtSearch.clearFocus();
+        edtSearch.setCursorVisible(false);
+        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(edtSearch.getWindowToken(), 0);
     }
 
     @Override

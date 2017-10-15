@@ -16,6 +16,9 @@
         android:drawablePadding="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="50dp"
+        android:imeOptions="actionSearch"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@drawable/drawable_white_rounded"/>
 
     <Button
