@@ -28,6 +28,7 @@ public class MyGenerator {
         station.addIdProperty().primaryKey().autoincrement();
         station.addStringProperty("station_code").notNull();
         station.addStringProperty("name");
+        station.addStringProperty("type");
         station.addStringProperty("telephone");
         station.addStringProperty("distence_miles");
         station.addStringProperty("distence_km");

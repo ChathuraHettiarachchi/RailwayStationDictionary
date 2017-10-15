@@ -1,0 +1,26 @@
+{
+  "array": [
+    {
+      "station_code":"FOT",
+      "station_name":"Colombo",
+      "telephone":null,
+      "type":"St.",
+      "distence_miles":"1.24",
+      "distence_km":"1.90",
+      "height_feet":"16",
+      "height_meters":"4.90",
+      "station_code_no":"003"
+    },
+    {
+      "station_code":"MDA",
+      "station_name":"Maradana",
+      "telephone":null,
+      "type":"St.",
+      "distence_miles":"0.38",
+      "distence_km":"0.41",
+      "height_feet":"15",
+      "height_meters":"4.60",
+      "station_code_no":"004"
+    }
+  ]
+}

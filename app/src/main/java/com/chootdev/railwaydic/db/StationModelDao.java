@@ -25,12 +25,13 @@ public class StationModelDao extends AbstractDao<StationModel, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Station_code = new Property(1, String.class, "station_code", false, "STATION_CODE");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
-        public final static Property Telephone = new Property(3, String.class, "telephone", false, "TELEPHONE");
-        public final static Property Distence_miles = new Property(4, String.class, "distence_miles", false, "DISTENCE_MILES");
-        public final static Property Distence_km = new Property(5, String.class, "distence_km", false, "DISTENCE_KM");
-        public final static Property Height_feet = new Property(6, String.class, "height_feet", false, "HEIGHT_FEET");
-        public final static Property Height_meters = new Property(7, String.class, "height_meters", false, "HEIGHT_METERS");
-        public final static Property Station_code_no = new Property(8, String.class, "station_code_no", false, "STATION_CODE_NO");
+        public final static Property Type = new Property(3, String.class, "type", false, "TYPE");
+        public final static Property Telephone = new Property(4, String.class, "telephone", false, "TELEPHONE");
+        public final static Property Distence_miles = new Property(5, String.class, "distence_miles", false, "DISTENCE_MILES");
+        public final static Property Distence_km = new Property(6, String.class, "distence_km", false, "DISTENCE_KM");
+        public final static Property Height_feet = new Property(7, String.class, "height_feet", false, "HEIGHT_FEET");
+        public final static Property Height_meters = new Property(8, String.class, "height_meters", false, "HEIGHT_METERS");
+        public final static Property Station_code_no = new Property(9, String.class, "station_code_no", false, "STATION_CODE_NO");
     }
 
 
@@ -49,12 +50,13 @@ public class StationModelDao extends AbstractDao<StationModel, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"STATION_CODE\" TEXT NOT NULL ," + // 1: station_code
                 "\"NAME\" TEXT," + // 2: name
-                "\"TELEPHONE\" TEXT," + // 3: telephone
-                "\"DISTENCE_MILES\" TEXT," + // 4: distence_miles
-                "\"DISTENCE_KM\" TEXT," + // 5: distence_km
-                "\"HEIGHT_FEET\" TEXT," + // 6: height_feet
-                "\"HEIGHT_METERS\" TEXT," + // 7: height_meters
-                "\"STATION_CODE_NO\" TEXT);"); // 8: station_code_no
+                "\"TYPE\" TEXT," + // 3: type
+                "\"TELEPHONE\" TEXT," + // 4: telephone
+                "\"DISTENCE_MILES\" TEXT," + // 5: distence_miles
+                "\"DISTENCE_KM\" TEXT," + // 6: distence_km
+                "\"HEIGHT_FEET\" TEXT," + // 7: height_feet
+                "\"HEIGHT_METERS\" TEXT," + // 8: height_meters
+                "\"STATION_CODE_NO\" TEXT);"); // 9: station_code_no
     }
 
     /** Drops the underlying database table. */
@@ -78,34 +80,39 @@ public class StationModelDao extends AbstractDao<StationModel, Long> {
             stmt.bindString(3, name);
         }
  
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(4, type);
+        }
+ 
         String telephone = entity.getTelephone();
         if (telephone != null) {
-            stmt.bindString(4, telephone);
+            stmt.bindString(5, telephone);
         }
  
         String distence_miles = entity.getDistence_miles();
         if (distence_miles != null) {
-            stmt.bindString(5, distence_miles);
+            stmt.bindString(6, distence_miles);
         }
  
         String distence_km = entity.getDistence_km();
         if (distence_km != null) {
-            stmt.bindString(6, distence_km);
+            stmt.bindString(7, distence_km);
         }
  
         String height_feet = entity.getHeight_feet();
         if (height_feet != null) {
-            stmt.bindString(7, height_feet);
+            stmt.bindString(8, height_feet);
         }
  
         String height_meters = entity.getHeight_meters();
         if (height_meters != null) {
-            stmt.bindString(8, height_meters);
+            stmt.bindString(9, height_meters);
         }
  
         String station_code_no = entity.getStation_code_no();
         if (station_code_no != null) {
-            stmt.bindString(9, station_code_no);
+            stmt.bindString(10, station_code_no);
         }
     }
 
@@ -124,34 +131,39 @@ public class StationModelDao extends AbstractDao<StationModel, Long> {
             stmt.bindString(3, name);
         }
  
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(4, type);
+        }
+ 
         String telephone = entity.getTelephone();
         if (telephone != null) {
-            stmt.bindString(4, telephone);
+            stmt.bindString(5, telephone);
         }
  
         String distence_miles = entity.getDistence_miles();
         if (distence_miles != null) {
-            stmt.bindString(5, distence_miles);
+            stmt.bindString(6, distence_miles);
         }
  
         String distence_km = entity.getDistence_km();
         if (distence_km != null) {
-            stmt.bindString(6, distence_km);
+            stmt.bindString(7, distence_km);
         }
  
         String height_feet = entity.getHeight_feet();
         if (height_feet != null) {
-            stmt.bindString(7, height_feet);
+            stmt.bindString(8, height_feet);
         }
  
         String height_meters = entity.getHeight_meters();
         if (height_meters != null) {
-            stmt.bindString(8, height_meters);
+            stmt.bindString(9, height_meters);
         }
  
         String station_code_no = entity.getStation_code_no();
         if (station_code_no != null) {
-            stmt.bindString(9, station_code_no);
+            stmt.bindString(10, station_code_no);
         }
     }
 
@@ -166,12 +178,13 @@ public class StationModelDao extends AbstractDao<StationModel, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // station_code
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // telephone
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // distence_miles
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // distence_km
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // height_feet
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // height_meters
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // station_code_no
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // type
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // telephone
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // distence_miles
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // distence_km
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // height_feet
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // height_meters
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // station_code_no
         );
         return entity;
     }
@@ -181,12 +194,13 @@ public class StationModelDao extends AbstractDao<StationModel, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setStation_code(cursor.getString(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTelephone(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setDistence_miles(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setDistence_km(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setHeight_feet(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setHeight_meters(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setStation_code_no(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setType(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTelephone(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setDistence_miles(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setDistence_km(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setHeight_feet(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setHeight_meters(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setStation_code_no(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     
     @Override

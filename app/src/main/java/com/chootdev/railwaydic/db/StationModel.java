@@ -19,6 +19,7 @@ public class StationModel {
     @NotNull
     private String station_code;
     private String name;
+    private String type;
     private String telephone;
     private String distence_miles;
     private String distence_km;
@@ -38,10 +39,11 @@ public class StationModel {
     }
 
     @Generated
-    public StationModel(Long id, String station_code, String name, String telephone, String distence_miles, String distence_km, String height_feet, String height_meters, String station_code_no) {
+    public StationModel(Long id, String station_code, String name, String type, String telephone, String distence_miles, String distence_km, String height_feet, String height_meters, String station_code_no) {
         this.id = id;
         this.station_code = station_code;
         this.name = name;
+        this.type = type;
         this.telephone = telephone;
         this.distence_miles = distence_miles;
         this.distence_km = distence_km;
@@ -74,6 +76,14 @@ public class StationModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTelephone() {
